@@ -1,0 +1,32 @@
+﻿@using  Aleker.Blazor.Svg.Maths
+
+@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        BigLoop(currentCount + 1);
+        currentCount++;
+    }
+    public static void BigLoop(int factor)
+    {
+        int zoom = 1;
+        SvgMatrix m = new SvgMatrix(/*1, 0, 0, 1, 100, 100*/);
+        SvgPoint pt1 = new SvgPoint(100, 102);
+        while (zoom++ < 10E6 * factor)
+        {
+            SvgPoint pt = m.Transform(pt1);
+        }
+        GC.Collect();
+    }
+}
